@@ -1,0 +1,72 @@
+import openpyxl
+
+
+
+# 한 건의 대화에 대한 정보를 담는 객체
+
+class Conversation:
+
+    
+
+    # 질문(Question), 응답(Answer) 두 변수로 구성
+
+    def __init__(self, contentName, contentType, question, answer):
+
+        self.contentName = contentName
+
+        self.contentType = contentType
+
+        self.question = question
+
+        self.answer = answer
+
+
+
+    def __str__(self):
+
+        return "질문: " + self.question + "\n답변: " + self.answer + "\n"
+
+
+
+# 영어 대화 데이터가 담긴 엑셀 파일을 염
+
+wb = openpyxl.load_workbook('input.xlsx')
+
+ 
+
+# 활성 시트를 얻음
+
+ws = wb.active
+
+
+
+conversations = []
+
+
+
+# 시트 내에 존재하는 모든 영어 대화 데이터를 객체로 담음
+
+for r in ws.rows:
+
+    c = Conversation(r[0].value, r[1].value, r[2].value, r[3].value)
+
+    conversations.append(c)
+
+    
+
+wb.close()
+
+    
+
+# 모든 대화 내용을 출력
+
+for c in conversations:
+
+    print(str(c))
+
+    
+
+print('총 ', len(conversations), '개의 대화가 존재합니다.')
+
+
+
